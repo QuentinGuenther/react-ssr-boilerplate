@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 
-class App extends Component {
+interface IProps {
+  data: string;
+}
+
+class App extends Component<IProps> {
   render() {
     return (
       <div>
-        Hello World
+        Hello {this.props.data}
       </div>
     )
   }
