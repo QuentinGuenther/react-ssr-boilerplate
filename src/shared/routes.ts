@@ -2,7 +2,14 @@ import Home from './Home'
 import Grid from './Grid'
 import { fetchPopularRepos } from './api'
 
-const routes =  [
+interface IRoute {
+  path: string;
+  component: any;
+  exact?: boolean;
+  fetchInitialData? (path: string): Promise<any>;
+}
+
+const routes: IRoute[] =  [
   {
     path: '/',
     exact: true,

@@ -1,7 +1,8 @@
-import React from 'react'
+import * as React from 'react'
+import { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
-export default function Navbar () {
+export default function Navbar() {
   const languages = [{
     name: 'All',
     param: 'all'

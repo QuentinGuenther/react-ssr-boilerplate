@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import * as fetch from 'isomorphic-fetch'
 
 export async function fetchPopularRepos (language = 'all') {
   const encodedURI = encodeURI(`https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories`)
