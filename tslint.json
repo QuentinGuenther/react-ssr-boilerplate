@@ -28,7 +28,14 @@
         "import-sources-order": "lowercase-last",
         "named-imports-order": "lowercase-first"
       }
-    ]
+    ],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "curly": [true, "ignore-same-line"],
+    "no-async-without-await": true
   },
   "rulesDirectory": []
 }
