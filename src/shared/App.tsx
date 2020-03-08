@@ -1,17 +1,17 @@
-import * as React from 'react'
-import { Component } from 'react'
-import routes from './routes'
-import { Route, Switch } from 'react-router-dom'
-import Navbar from './Navbar'
-import NoMatch from './NoMatch'
+import * as React from "react";
+import { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import Navbar from "./Navbar";
+import NoMatch from "./NoMatch";
+import routes from "./routes";
 
 interface IProps {
   data?: any[];
 }
 
 class App extends Component<IProps> {
-  render() {
-    const data = this.props.data
+  public render() {
+    const data = this.props.data;
     return (
       <div>
         <Navbar />
@@ -25,8 +25,8 @@ class App extends Component<IProps> {
           <Route render={(props) => <NoMatch /> } />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

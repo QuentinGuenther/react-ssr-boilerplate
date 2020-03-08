@@ -1,27 +1,27 @@
-import Home from './Home'
-import Grid from './Grid'
-import { fetchPopularRepos } from './api'
+import Grid from "./Grid";
+import Home from "./Home";
+import { fetchPopularRepos } from "./api";
 
 interface IRoute {
   path: string;
   component: any;
   exact?: boolean;
-  fetchInitialData? (path: string): Promise<any>;
+  fetchInitialData?(path: string): Promise<any>;
 }
 
 const routes: IRoute[] =  [
   {
-    path: '/',
+    path: "/",
     exact: true,
     component: Home,
   },
   {
-    path: '/popular/:id',
+    path: "/popular/:id",
     component: Grid,
-    fetchInitialData: (path = '') => fetchPopularRepos(
-        path.split('/').pop()
-    )
-  }
-]
+    fetchInitialData: (path = "") => fetchPopularRepos(
+        path.split("/").pop()
+    ),
+  },
+];
 
-export default routes
+export default routes;

@@ -1,41 +1,41 @@
-import * as express from "express"
-import * as cors from "cors"
-import * as React from "react"
-import { renderToString } from "react-dom/server"
-import { StaticRouter, matchPath } from "react-router-dom"
-import * as serialize from "serialize-javascript"
-import App from '../shared/App'
-import Home from '../shared/Home'
-import routes from '../shared/routes'
+import * as cors from "cors";
+import * as express from "express";
+import * as React from "react";
+import { renderToString } from "react-dom/server";
+import { matchPath, StaticRouter } from "react-router-dom";
+import * as serialize from "serialize-javascript";
+import App from "../shared/App";
+import routes from "../shared/routes";
 
-const app = express()
+const app = express();
 
-app.use(cors())
-app.use(express.static("public"))
+app.use(cors());
+app.use(express.static("public"));
 
 app.get("*", (req, res, next) => {
   const activeRoute = routes.find((route) => matchPath(req.url, {
     path: route.path,
     exact: route.exact,
-  }))
+  }));
 
   const promise = activeRoute && activeRoute.fetchInitialData
     ? activeRoute.fetchInitialData(req.path)
-    : Promise.resolve()
+    : Promise.resolve();
 
   promise.then((data: any[]) => {
     const markup = renderToString(
       <StaticRouter location={req.url} >
         <App data={data} />
       </StaticRouter>
-    )
+    );
     res.send(generateHTML(markup, data));
-  }).catch(next)
-})
+  }).catch(next);
+});
 
 app.listen(3000, () => {
-  console.log(`Server is listening on port: 3000`)
-})
+  // tslint:disable-next-line: no-console
+  console.log(`Server is listening on port: 3000`);
+});
 
 const generateHTML = (markup: string, data = {}) => {
   return(
@@ -51,4 +51,4 @@ const generateHTML = (markup: string, data = {}) => {
         </body>
       </html>`
   );
-}
+};
