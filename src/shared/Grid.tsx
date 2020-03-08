@@ -1,57 +1,71 @@
-import React, { Component } from 'react'
+import * as React from "react";
+import { Component } from "react";
+import { isBrowser } from "./globals";
 
 interface IProps {
-    staticContext: { data: any }
+    data: any;
+    match: {
+      params: {
+        id: string;
+      }
+    };
+    fetchInitialData: (lang: string) => Promise<any>;
 }
-class Grid extends Component<IProps> {
-  constructor(props) {
-    super(props)
 
-    let repos
-    if (__isBrowser__) {
-      repos = window.__INITIAL_DATA__
-      delete window.__INITIAL_DATA__
+interface IState {
+  repos: any[];
+  loading: boolean;
+}
+
+class Grid extends Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    let repos;
+    if (isBrowser) {
+      repos = window.__INITIAL_DATA__;
+      delete window.__INITIAL_DATA__;
     } else {
-      repos = this.props.staticContext.data
+      repos = this.props.data;
     }
 
     this.state = {
       repos,
       loading: repos ? false : true,
-    }
+    };
 
-    this.fetchRepos = this.fetchRepos.bind(this)
+    this.fetchRepos = this.fetchRepos.bind(this);
   }
-  componentDidMount () {
+  public componentDidMount() {
     if (!this.state.repos) {
-      this.fetchRepos(this.props.match.params.id)
+      this.fetchRepos(this.props.match.params.id);
     }
   }
-  componentDidUpdate (prevProps, prevState) {
+  public componentDidUpdate(prevProps: IProps) {
     if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.fetchRepos(this.props.match.params.id)
+      this.fetchRepos(this.props.match.params.id);
     }
   }
-  fetchRepos (lang) {
+  public fetchRepos(lang: string) {
     this.setState(() => ({
-      loading: true
-    }))
+      loading: true,
+    }));
 
     this.props.fetchInitialData(lang)
-      .then((repos) => this.setState(() => ({
+      .then((repos: any[]) => this.setState(() => ({
         repos,
         loading: false,
-      })))
+      })));
   }
-  render() {
-    const { loading, repos } = this.state
+  public render() {
+    const { loading, repos } = this.state;
 
     if (loading === true) {
-      return <p>LOADING</p>
+      return <p>LOADING</p>;
     }
 
     return (
-      <ul style={{display: 'flex', flexWrap: 'wrap'}}>
+      <ul style={{display: "flex", flexWrap: "wrap"}}>
         {repos.map(({ name, owner, stargazers_count, html_url }) => (
           <li key={name} style={{margin: 30}}>
             <ul>
@@ -62,8 +76,8 @@ class Grid extends Component<IProps> {
           </li>
         ))}
       </ul>
-    )
+    );
   }
 }
 
-export default Grid
+export default Grid;

@@ -1,0 +1,41 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "no-implicit-dependencies": true,
+    "no-duplicate-imports": [true, {"allow-namespace-imports": true}],
+    "no-require-imports": true,
+    "no-consecutive-blank-lines": true,
+    "semicolon": [true, "always"],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+        "objects": "always",
+        "arrays": "always",
+        "functions": "never",
+        "typeLiterals": "ignore"
+        },
+        "esSpecCompliant": true
+      }
+    ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "curly": [true, "ignore-same-line"],
+    "no-async-without-await": true
+  },
+  "rulesDirectory": []
+}

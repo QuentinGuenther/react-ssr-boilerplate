@@ -1,9 +1,9 @@
-import React from 'react'
+import * as React from "react";
 
-export default function Home () {
+export default function Home() {
   return (
     <div>
       Select a Language
     </div>
-  )
+  );
 }

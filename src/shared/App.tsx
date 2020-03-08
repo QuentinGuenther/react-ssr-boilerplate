@@ -1,30 +1,32 @@
-import React, { Component } from 'react'
-import routes from './routes'
-import { Route, Link, Redirect, Switch } from 'react-router-dom'
-import Navbar from './Navbar'
-import NoMatch from './NoMatch'
+import * as React from "react";
+import { Component } from "react";
+import { Route, Switch } from "react-router-dom";
+import Navbar from "./Navbar";
+import NoMatch from "./NoMatch";
+import routes from "./routes";
 
 interface IProps {
-  data: string;
+  data?: any[];
 }
 
 class App extends Component<IProps> {
-  render() {
+  public render() {
+    const data = this.props.data;
     return (
       <div>
         <Navbar />
 
         <Switch>
-          {routes.map(({ path, exact, component: Component, ...rest }) => (
+          {routes.map(({ path, exact, component, ...rest }) => (
             <Route key={path} path={path} exact={exact} render={(props) => (
-              <Component {...props} {...rest} />
+              React.createElement(component, {data}, {...rest})
             )} />
           ))}
-          <Route render={(props) => <NoMatch {...props} /> } />
+          <Route render={(props) => <NoMatch /> } />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

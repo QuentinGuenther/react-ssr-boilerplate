@@ -1,10 +1,10 @@
-// webpack.config.js
-
 var path = require('path')
 var webpack = require('webpack')
 var nodeExternals = require('webpack-node-externals')
 
 var browserConfig = {
+  mode: "production",
+  devtool: "source-map",
   entry: './src/client/index.tsx',
   resolve: {
     extensions: ['.ts', '.tsx', '.js']
@@ -16,8 +16,30 @@ var browserConfig = {
   },
   module: {
     rules: [
-      { test: /\.(tsx)$/, use: 'babel-loader' },
+      { 
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+              loader: "ts-loader"
+          }
+        ]
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      }
     ]
+  },
+  externals: {
+    "cors": "CORS",
+    "express": "Express",
+    "isomorphic-fetch": "IsomorphicFetch",
+    "react": "React",
+    "react-dom": "ReactDOM",
+    "react-router-dom": "ReactRouterDOM",
+    "serialize-javascript": "SerializeJavascript"
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -27,6 +49,8 @@ var browserConfig = {
 }
 
 var serverConfig = {
+  mode: "production",
+  devtool: "source-map",
   entry: './src/server/index.tsx',
   target: 'node',
   externals: [nodeExternals()],
@@ -40,7 +64,20 @@ var serverConfig = {
   },
   module: {
     rules: [
-      { test: /\.(tsx)$/, use: 'babel-loader' }
+      { 
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+              loader: "ts-loader"
+          }
+        ]
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
+      }
     ]
   },
   plugins: [
