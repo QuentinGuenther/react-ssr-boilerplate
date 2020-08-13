@@ -57,6 +57,6 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-router-dom": "^5.1.2",
-    "serialize-javascript": "^3.0.0"
+    "serialize-javascript": "^3.1.0"
   }
 }
